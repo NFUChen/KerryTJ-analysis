@@ -1,0 +1,29 @@
+version: '3.3'
+services:
+  dsp:
+    container_name: dsp
+    restart: always
+    build:
+      context: ./kerryTJ-analysis-dsp
+      dockerfile: dockerfile
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_REACT_BACKEND_IP=192.168.0.12
+    stdin_open: true
+    tty: true
+
+  server:
+    container_name: server
+    restart: always
+    build:
+      context: ./kerryTJ-analysis
+      dockerfile: dockerfile
+    ports:
+      - "8080:8080"
+
+    stdin_open: true
+    tty: true
+
+    volumes:
+      - /home/user/shipment/:/shipment
